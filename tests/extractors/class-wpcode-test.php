@@ -33,6 +33,7 @@ class WPCode_Test extends \WP_UnitTestCase {
 
 		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
+		$translations->setDomain( 'pllse' );
 
 		WPCode::fromFile( $path, $translations );
 
@@ -56,6 +57,7 @@ class WPCode_Test extends \WP_UnitTestCase {
 
 		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
+		$translations->setDomain( 'pllse' );
 
 		WPCode::fromFile( $path, $translations );
 
@@ -76,6 +78,7 @@ class WPCode_Test extends \WP_UnitTestCase {
 
 		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
+		$translations->setDomain( 'pllse' );
 
 		WPCode::fromFile( $path, $translations );
 
@@ -97,6 +100,7 @@ class WPCode_Test extends \WP_UnitTestCase {
 
 		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
+		$translations->setDomain( 'pllse' );
 
 		WPCode::fromFile( $path, $translations );
 
@@ -118,6 +122,7 @@ class WPCode_Test extends \WP_UnitTestCase {
 
 		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
+		$translations->setDomain( 'pllse' );
 
 		WPCode::fromFile( $path, $translations );
 
@@ -136,6 +141,7 @@ class WPCode_Test extends \WP_UnitTestCase {
 
 		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
+		$translations->setDomain( 'pllse' );
 
 		WPCode::fromFile( $path, $translations );
 

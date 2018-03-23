@@ -59,7 +59,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 						continue 2;
 					}
 
-					$original = $args[0];
+					list($original, $domain) = $args;
 					break;
 
 				case 'wp_n_translate':
@@ -68,7 +68,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 						continue 2;
 					}
 
-					list($original, $plural) = $args;
+					list($original, $plural, $number, $domain) = $args;
 					break;
 
 				case 'wp_x_translate':
@@ -76,7 +76,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 						continue 2;
 					}
 
-					list($original, $context) = $args;
+					list($original, $context, $domain) = $args;
 					break;
 
 				case 'wp_nx_translate':
@@ -84,7 +84,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 						continue 2;
 					}
 
-					list($original, $plural, $number, $context) = $args;
+					list($original, $plural, $number, $context, $domain) = $args;
 					break;
 
 				case 'wp_n_noop_translate':
@@ -93,7 +93,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 						continue 2;
 					}
 
-					list($original, $plural) = $args;
+					list($original, $plural, $domain) = $args;
 					break;
 
 				case 'wp_nx_noop_translate':
@@ -102,14 +102,14 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 						continue 2;
 					}
 
-					list($original, $plural, $context) = $args;
+					list($original, $plural, $context, $domain) = $args;
 					break;
 
 				default:
 					throw new \Exception( sprintf( 'Not valid function %s', $functions[ $name ] ) );
 			}// End switch().
 
-			if ( '' !== (string) $original && ( null === $domain || $domain === $translations->getDomain()) ) {
+			if ( '' !== (string) $original && $domain === $translations->getDomain() ) {
 				$translation = $translations->insert( $context, $original, $plural );
 				$translation->addReference( $file, $line );
 
