@@ -1,0 +1,41 @@
+# Dotfiles
+.*
+
+# Executable
+bin
+
+# Packages
+composer.json
+composer.lock
+
+# Configuration
+rules
+phpunit.xml
+build.xml
+
+# Tests
+tests
+vendor/symfony/cache/Tests
+vendor/symfony/class-loader/Tests
+vendor/symfony/config/Tests
+vendor/symfony/debug/Tests
+vendor/symfony/dependency-injection/Tests
+vendor/symfony/event-dispatcher/Tests
+vendor/symfony/filesystem/Tests
+vendor/symfony/finder/Tests
+vendor/symfony/form/Tests
+vendor/symfony/framework-bundle/Tests
+vendor/symfony/http-foundation/Tests
+vendor/symfony/http-kernel/Tests
+vendor/symfony/inflector/Tests
+vendor/symfony/intl/Tests
+vendor/symfony/options-resolver/Tests
+vendor/symfony/property-access/Tests
+vendor/symfony/routing/Tests
+vendor/symfony/stopwatch/Tests
+vendor/symfony/templating/Tests
+vendor/symfony/translation/Tests
+vendor/symfony/validator/Tests
+
+# Polyfill for php 7.0 is not accepted by pre-commit hook from wordpress.org svn repo
+vendor/symfony/polyfill-php70/Resources/stubs

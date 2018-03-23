@@ -1,0 +1,13 @@
+<phpunit
+	backupGlobals="false"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">./inc</directory>
+			<file>./functions.php</file>
+	  </whitelist>
+	</filter>
+</phpunit>

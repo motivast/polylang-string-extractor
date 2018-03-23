@@ -1,0 +1,38 @@
+language: php
+
+php:
+  - "7.0"
+  - "7.1"
+  - "7.2"
+
+services:
+  - mysql
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+install:
+    - ./bin/env.sh
+    - composer install --ignore-platform-reqs
+    - ./vendor/bin/phing tests:db:create tests:config
+
+script: ./vendor/bin/phing tests:coverage
+
+jobs:
+  include:
+    - stage: inspect
+      script: ./vendor/bin/phing inspect
+      php: 7.0
+
+stages:
+  - inspect
+  - test
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

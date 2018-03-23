@@ -1,0 +1,9 @@
+<ruleset name="WordPress">
+
+	<description>WordPress</description>
+
+	<rule ref="WordPress"></rule>
+
+	<exclude-pattern>index.php</exclude-pattern>
+
+</ruleset>

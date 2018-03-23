@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="PolylangStringExtractor" default="build">
+
+	<property name="plugin"  value="polylang-string-extractor" override="true" />
+
+	<!-- ============================================  -->
+	<!-- Target: dotenv                                -->
+	<!-- ============================================  -->
+	<target name="dotenv" description="Load environmental variables from .env file.">
+		<echo msg="Load .env file if exists" />
+
+		<property file=".env" />
+
+		<resolvepath propertyName="WP_PATH" file="${WP_PATH}"/>
+		<resolvepath propertyName="WP_TESTS_LIB_PATH" file="${WP_TESTS_LIB_PATH}"/>
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: setup:symlink                         -->
+	<!-- ============================================  -->
+	<target name="setup:directories" depends="dotenv" description="Create required directories.">
+
+		<echo msg="Create required directories" />
+		<exec command="mkdir -p ${WP_PATH}/wp-content/plugins; mkdir -p ${WP_PATH}/wp-content/themes"/>
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: setup:symlink                         -->
+	<!-- ============================================  -->
+	<target name="setup:symlink" description="Symlink proper directories.">
+
+		<echo msg="Symlink proper directories" />
+
+		<!-- ============================================  -->
+		<!-- Symlink required vendor files                 -->
+		<!-- ============================================  -->
+		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress" overwrite="true" />
+		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress-Core" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress-Core" overwrite="true" />
+		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress-Docs" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress-Docs" overwrite="true" />
+		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress-Extra" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress-Extra" overwrite="true" />
+		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress-VIP" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress-VIP" overwrite="true" />
+
+		<!-- ============================================  -->
+		<!-- Symlink plugin itself to wp plugins dir       -->
+		<!-- ============================================  -->
+		<symlink target="${project.basedir}" link="${project.basedir}/wordpress/wp-content/plugins/${plugin}"  overwrite="true" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: setup:githook                         -->
+	<!-- ============================================  -->
+	<target name="setup:githook" description="Create git pre-commit hook to execute inspect task before commit.">
+		<echo msg="Create pre-commit githook" />
+
+		<exec command="mkdir -p .git/hooks; touch .git/hooks/pre-commit; echo '' > .git/hooks/pre-commit; echo '#!/bin/sh' >> .git/hooks/pre-commit; echo './vendor/bin/phing inspect' >> .git/hooks/pre-commit; chmod +x .git/hooks/pre-commit;"/>
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: setup                                 -->
+	<!-- ============================================  -->
+	<target name="setup" description="Setup project. Execute setup:symlink, setup:githook.">
+	  <echo msg="Setup project" />
+
+	  <phingcall target="setup:directories" />
+	  <phingcall target="setup:symlink" />
+	  <phingcall target="setup:githook" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: wp:db:create                          -->
+	<!-- ============================================  -->
+	<target name="wp:db:create" depends="dotenv" description="Create WordPress database.">
+		<echo msg="Create WordPress database" />
+
+		<exec command="./vendor/bin/wp db create --path=${WP_PATH} --allow-root" passthru="true" checkreturn="false" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: wpremovedatabase                      -->
+	<!-- ============================================  -->
+	<target name="wp:db:drop" depends="dotenv" description="Drop WordPress database.">
+		<echo msg="Drop WordPress database" />
+
+		<exec command="./vendor/bin/wp db drop --yes --path=${WP_PATH} --allow-root" passthru="true" checkreturn="false" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: wp:download						   -->
+	<!-- ============================================  -->
+	<target name="wp:download" depends="dotenv" description="Download WordPress.">
+		<echo msg="Download WordPress ${WP_VERSION}" />
+
+		<!-- Enviroment variables are loaded by dotenv target -->
+		<exec command="./vendor/bin/wp core download --version=${WP_VERSION} --path=${WP_PATH} --locale=${WP_LOCALE} --skip-content --allow-root --force" passthru="true" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: wpconfig                              -->
+	<!-- ============================================  -->
+	<target name="wp:config" depends="dotenv" description="Generate WordPress wp-config.php.">
+		<echo msg="Generate WordPress wp-config.php" />
+
+		<!-- Enviroment variables are loaded by dotenv target -->
+		<exec command="./vendor/bin/wp core config --dbname=${WP_CONFIG_DB_NAME} --dbuser=${WP_CONFIG_DB_USER} --dbpass=${WP_CONFIG_DB_PASS} --dbhost=${WP_CONFIG_DB_HOST} --extra-php=${WP_CONFIG_EXTRA} --path=${WP_PATH} --allow-root --skip-check --force" passthru="true" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: wpinstall                             -->
+	<!-- ============================================  -->
+	<target name="wp:install" depends="dotenv" description="Generate WordPress wp-config.php.">
+		<echo msg="Install WordPress" />
+
+		<exec command="./vendor/bin/wp core install --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASS} --admin_email=${WP_ADMIN_EMAIL} --path=${WP_PATH} --allow-root" passthru="true" checkreturn="true" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: wpplugins                             -->
+	<!-- ============================================  -->
+	<target name="wp:plugins" depends="dotenv" description="Activate installed plugins..">
+		<echo msg="Activate plugins" />
+
+		<exec command="./vendor/bin/wp plugin activate `./vendor/bin/wp plugin list --status=inactive --format=csv --path=${WP_PATH} --allow-root | cut -d',' -f1 | tail -n +2 | tr '\n' ' '` --path=${WP_PATH} --allow-root" passthru="true" checkreturn="true" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: wp:init                               -->
+	<!-- ============================================  -->
+	<target name="wp:init" description="Initialize WordPress. Execute wp:download, wp:config, wp:install, wp:plugins.">
+		<echo msg="Init WordPress" />
+
+		<phingcall target="wp:download" />
+		<phingcall target="setup" />
+		<phingcall target="wp:config" />
+		<phingcall target="wp:install" />
+		<phingcall target="wp:plugins" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: wp:reset                              -->
+	<!-- ============================================  -->
+	<target name="wp:reset" description="Reset WordPress. Execute wp:config, wp:db:drop, wp:db:create, wp:install, wp:plugins.">
+		<echo msg="Reset WordPress" />
+
+		<phingcall target="wp:download" />
+		<phingcall target="setup" />
+		<phingcall target="wp:config" />
+		<phingcall target="wp:db:drop" />
+		<phingcall target="wp:db:create" />
+		<phingcall target="wp:install" />
+		<phingcall target="wp:plugins" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: lint                                  -->
+	<!-- ============================================  -->
+	<target name="inspect:lint" description="Check possible syntax errors in php files using php -l command." depends="setup:symlink">
+		<echo msg="Check possible syntax errors" />
+		<exec command="for i in $(find . \( -path ./vendor -o -path ./wordpress \) -prune -o -name '*.php' -print); do php -l $i; done" passthru="true" checkreturn="true" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: phpcs                                 -->
+	<!-- ============================================  -->
+	<target name="inspect:phpcs" description="Check posible code styling errors in php files using phpcs comamnd." depends="setup:symlink">
+		<echo msg="Check posible code styling errors" />
+		<exec command="./vendor/bin/phpcs ./  --extensions=php --ignore=${project.basedir}/vendor,${project.basedir}/wordpress --standard=./rules/phpcs.xml" passthru="true" checkreturn="true" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: phpmd                                 -->
+	<!-- ============================================  -->
+	<!-- @TODO: phpmd don't want to work with self symlinks. Scan only inc directory for now. -->
+	<target name="inspect:phpmd" description="Check posible mess in php files using phpmd comamnd." depends="setup:symlink">
+		<echo msg="Check posible mess" />
+		<exec command="./vendor/bin/phpmd ./inc text ./rules/phpmd.xml" passthru="true" checkreturn="false" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: phpcpd                                -->
+	<!-- ============================================  -->
+	<target name="inspect:phpcpd" description="Check posible duplicates in php files using phpcpd comamnd." depends="setup:symlink">
+		<echo msg="Check posible duplicates" />
+		<exec command="./vendor/bin/phpcpd ./ --exclude vendor --exclude wordpress" passthru="true" checkreturn="false" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: phpcbf                                -->
+	<!-- ============================================  -->
+	<target name="inspect:fix" description="Auto fix code styling errors in php files using phpcbf comamnd." depends="setup:symlink">
+		<echo msg="Auto fix code styling errors" />
+		<exec command="./vendor/bin/phpcbf ./  --extensions=php --ignore=${project.basedir}/vendor,${project.basedir}/wordpress --standard=./rules/phpcs.xml" passthru="true" checkreturn="true" />
+	</target>
+
+	<target name="inspect" description="Inspect php code. Execute inspect:lint, inspect:phpcs, inspect:phpcpd, inspect:phpmd." depends="inspect:lint, inspect:phpcs, inspect:phpcpd, inspect:phpmd">
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: tests:db:create                       -->
+	<!-- ============================================  -->
+	<target name="tests:db:create" depends="dotenv" description="Create WordPress database for tests.">
+
+		<echo msg="Create new config with credentials for tests database" />
+		<exec command="./vendor/bin/wp core config --dbname=${WP_TESTS_CONFIG_DB_NAME} --dbuser=${WP_TESTS_CONFIG_DB_USER} --dbpass=${WP_TESTS_CONFIG_DB_PASS} --dbhost=${WP_TESTS_CONFIG_DB_HOST} --path=${WP_PATH} --allow-root --skip-check --force" passthru="true" />
+
+		<echo msg="Create db for tests" />
+		<exec command="./vendor/bin/wp db create --path=${WP_PATH} --allow-root" passthru="true" checkreturn="false" />
+
+		<echo msg="Restore original config" />
+		<exec command="./vendor/bin/wp core config --dbname=${WP_CONFIG_DB_NAME} --dbuser=${WP_CONFIG_DB_USER} --dbpass=${WP_CONFIG_DB_PASS} --dbhost=${WP_CONFIG_DB_HOST} --path=${WP_PATH} --allow-root --skip-check --force" passthru="true" />
+
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: tests:db:drop                         -->
+	<!-- ============================================  -->
+	<target name="tests:db:drop" depends="dotenv" description="Drop WordPress database for tests.">
+
+		<echo msg="Create new config with credentials for tests database" />
+		<exec command="./vendor/bin/wp core config --dbname=${WP_TESTS_CONFIG_DB_NAME} --dbuser=${WP_TESTS_CONFIG_DB_USER} --dbpass=${WP_TESTS_CONFIG_DB_PASS} --dbhost=${WP_TESTS_CONFIG_DB_HOST} --path=${WP_PATH} --allow-root --skip-check --force" passthru="true" />
+
+		<echo msg="Drop db for tests" />
+		<phingcall target="wp:db:drop" />
+
+		<echo msg="Restore original config" />
+		<phingcall target="wp:config" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: tests:config                          -->
+	<!-- ============================================  -->
+	<target name="tests:config" depends="dotenv" description="Copy wp-tests-config.php from tests dir to wp tests lib directory and replace credentials.">
+		<echo msg="Copy wp-tests-config.php" />
+
+		<copy file="./tests/wp-tests-config.php" tofile="${WP_TESTS_LIB_PATH}/wp-tests-config.php" overwrite="true">
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="WP_PATH" replace="'${WP_PATH}/'"/>
+					<regexp pattern="WP_TESTS_CONFIG_DB_NAME" replace="'${WP_TESTS_CONFIG_DB_NAME}'"/>
+					<regexp pattern="WP_TESTS_CONFIG_DB_USER" replace="'${WP_TESTS_CONFIG_DB_USER}'"/>
+					<regexp pattern="WP_TESTS_CONFIG_DB_PASS" replace="'${WP_TESTS_CONFIG_DB_PASS}'"/>
+					<regexp pattern="WP_TESTS_CONFIG_DB_HOST" replace="'${WP_TESTS_CONFIG_DB_HOST}'"/>
+				</replaceregexp>
+			</filterchain>
+		</copy>
+
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: tests:phpunit						   -->
+	<!-- ============================================  -->
+	<target name="tests:phpunit" depends="dotenv" description="Execute tests using phpunit">
+		<echo msg="Execute tests" />
+		<phpunit bootstrap="tests/bootstrap.php" configuration="phpunit.xml" printsummary="true" haltonerror="true"  haltonfailure="true" usecustomerrorhandler="false">
+			<formatter type="plain" usefile="false"/>
+			<batchtest>
+				<fileset dir="./tests">
+					<include name="**/*-test.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: tests:phpunit:coverage				   -->
+	<!-- ============================================  -->
+	<target name="tests:phpunit:coverage" depends="dotenv" description="Execute tests using phpunit with code coverage">
+		<echo msg="Execute tests" />
+		<coverage-setup database="coverage.db">
+			<fileset dir="./inc">
+			   <include name="**/*.php"/>
+			</fileset>
+			<filelist dir="./" files="${plugin}.php"/>
+		</coverage-setup>
+		<phpunit bootstrap="tests/bootstrap.php" configuration="phpunit.xml" printsummary="true" haltonerror="true"  haltonfailure="true" usecustomerrorhandler="false" codecoverage="true">
+			<formatter type="clover" usefile="true" outfile="clover.xml" />
+			<batchtest>
+				<fileset dir="./tests">
+					<include name="**/*-test.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: tests                                 -->
+	<!-- ============================================  -->
+	<target name="tests" depends="dotenv, tests:phpunit" description="Execute unit tests. Execute tests:config, tests:phpunit." />
+
+	<!-- ============================================  -->
+	<!-- Target: tests:coverage                           -->
+	<!-- ============================================  -->
+	<target name="tests:coverage" depends="dotenv, tests:phpunit:coverage" description="Execute unit tests. Execute tests:config, tests:phpunit:coverage." />
+
+</project>

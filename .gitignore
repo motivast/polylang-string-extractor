@@ -1,0 +1,11 @@
+# Ignore .env files
+.env
+
+# Ignore wordpress itself
+wordpress
+
+# Ignore vendor lib
+vendor
+
+# Reports
+clover.xml
