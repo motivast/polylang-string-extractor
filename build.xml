@@ -96,6 +96,20 @@
 	</target>
 
 	<!-- ============================================  -->
+	<!-- Target: wp:download:dev					   -->
+	<!-- ============================================  -->
+	<target name="wp:download:dev" depends="dotenv" description="Download WordPress development version.">
+		<echo msg="Download WordPress development ${WP_VERSION}" />
+
+		<httpget url="https://github.com/WordPress/wordpress-develop/archive/${WP_VERSION}.tar.gz" dir="." followRedirects="true" />
+
+		<untar file="${WP_VERSION}.tar.gz" todir="." />
+		<move file="wordpress-develop-${WP_VERSION}" tofile="${WP_TESTS_LIB_PATH}" overwrite="true" />
+
+		<delete file="${WP_VERSION}.tar.gz" />
+	</target>
+
+	<!-- ============================================  -->
 	<!-- Target: wpconfig                              -->
 	<!-- ============================================  -->
 	<target name="wp:config" depends="dotenv" description="Generate WordPress wp-config.php.">
@@ -156,7 +170,7 @@
 	<!-- ============================================  -->
 	<target name="inspect:lint" description="Check possible syntax errors in php files using php -l command." depends="setup:symlink">
 		<echo msg="Check possible syntax errors" />
-		<exec command="for i in $(find . \( -path ./vendor -o -path ./wordpress \) -prune -o -name '*.php' -print); do php -l $i; done" passthru="true" checkreturn="true" />
+		<exec command="for i in $(find . \( -path ./vendor -o -path ./wordpress -o -path ./wordpress-dev \) -prune -o -name '*.php' -print); do php -l $i; done" passthru="true" checkreturn="true" />
 	</target>
 
 	<!-- ============================================  -->
@@ -164,7 +178,7 @@
 	<!-- ============================================  -->
 	<target name="inspect:phpcs" description="Check posible code styling errors in php files using phpcs comamnd." depends="setup:symlink">
 		<echo msg="Check posible code styling errors" />
-		<exec command="./vendor/bin/phpcs ./  --extensions=php --ignore=${project.basedir}/vendor,${project.basedir}/wordpress --standard=./rules/phpcs.xml" passthru="true" checkreturn="true" />
+		<exec command="./vendor/bin/phpcs ./  --extensions=php --ignore=${project.basedir}/vendor,${project.basedir}/wordpress,${project.basedir}/wordpress-dev --standard=./rules/phpcs.xml" passthru="true" checkreturn="true" />
 	</target>
 
 	<!-- ============================================  -->
@@ -181,7 +195,7 @@
 	<!-- ============================================  -->
 	<target name="inspect:phpcpd" description="Check posible duplicates in php files using phpcpd comamnd." depends="setup:symlink">
 		<echo msg="Check posible duplicates" />
-		<exec command="./vendor/bin/phpcpd ./ --exclude vendor --exclude wordpress" passthru="true" checkreturn="false" />
+		<exec command="./vendor/bin/phpcpd ./ --exclude vendor --exclude wordpress --exclude wordpress-dev" passthru="true" checkreturn="false" />
 	</target>
 
 	<!-- ============================================  -->

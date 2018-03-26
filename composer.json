@@ -13,17 +13,6 @@
       {
         "type":"composer",
         "url":"https://wpackagist.org"
-      },
-      {
-        "type": "package",
-        "package": {
-          "name": "wordpress/wordpress-dev",
-          "version": "4.9.4",
-          "dist": {
-            "type": "zip",
-            "url": "https://github.com/WordPress/wordpress-develop/archive/4.9.4.zip"
-          }
-        }
       }
     ],
     "require": {
@@ -31,7 +20,10 @@
     },
     "require-dev": {
       "php": ">=5.6.0",
+
       "phing/phing": "2.16.0",
+      "pear/http_request2": "2.3.0",
+
       "wp-cli/wp-cli": "1.5.0",
 
       "phpunit/phpunit": "5.7.21",
@@ -43,8 +35,6 @@
       "phploc/phploc": "4.0.0",
       "phpmd/phpmd": "2.4.2",
       "friendsofphp/php-cs-fixer": "1.11.4",
-
-      "wordpress/wordpress-dev": "4.9.4",
 
       "wpackagist-plugin/polylang": "2.3.3",
       "wpackagist-theme/twentyseventeen": "1.4.0"

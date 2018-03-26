@@ -5,7 +5,7 @@
  * @package PolylangStringExtractor
  */
 
-$_tests_dir = './vendor/wordpress/wordpress-dev/tests/phpunit';
+$_tests_dir = './wordpress-dev/tests/phpunit';
 
 // Give access to tests_add_filter() function.
 require_once $_tests_dir . '/includes/functions.php';

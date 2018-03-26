@@ -29,7 +29,7 @@ This command will install WordPress with configuration from .env file. After ins
 
 ### Setup tests
 ```
-./vendor/bin/phing tests:db:create tests:config
+./vendor/bin/phing wp:download:dev tests:db:create tests:config
 ```
 
 This command will create WordPress database for tests and create config file in wordpress-dev directory.

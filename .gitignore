@@ -3,6 +3,7 @@
 
 # Ignore wordpress itself
 wordpress
+wordpress-dev
 
 # Ignore vendor lib
 vendor
