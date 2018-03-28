@@ -38,11 +38,9 @@ spl_autoload_register(function( $filename ) {
 	 * We ignore the first index since it's always the top-level package. The last index is always
 	 * the file so we append that at the end.
 	 */
-	$fully_qualified_path = trailingslashit(
-		dirname(
-			dirname( __FILE__ )
-		)
-	);
+	$fully_qualified_path = rtrim( dirname(
+		dirname( __FILE__ )
+	), '/\\' ) . '/';
 
 	$fully_qualified_path = sprintf( '%s/inc/', $fully_qualified_path );
 
@@ -51,7 +49,7 @@ spl_autoload_register(function( $filename ) {
 	for ( $i = 1; $i < $file_path_count - 1; $i++ ) {
 
 		$dir = strtolower( $file_path[ $i ] );
-		$fully_qualified_path .= trailingslashit( $dir );
+		$fully_qualified_path .= rtrim( $dir, '/\\' ) . '/';
 	}
 	$fully_qualified_path .= $class_file;
 

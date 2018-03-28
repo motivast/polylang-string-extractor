@@ -27,13 +27,6 @@ During installation WordPress is downloaded to wordpress directory and current d
 
 This command will install WordPress with configuration from .env file. After installation you should have fully working WordPress instance with Polylang String Extractor plugin activated.
 
-### Setup tests
-```
-./vendor/bin/phing wp:download:dev tests:db:create tests:config
-```
-
-This command will create WordPress database for tests and create config file in wordpress-dev directory.
-
 ### Code inspection and tests
 Be sure to execute code inspection and test before before making a pull request.
 ```

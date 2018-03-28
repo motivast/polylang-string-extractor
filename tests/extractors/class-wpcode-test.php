@@ -12,6 +12,8 @@
 
 namespace PolylangStringExtractorTests\Extractors;
 
+use PHPUnit\Framework\TestCase;
+
 use PolylangStringExtractor\Extractors\WPCode;
 
 /**
@@ -24,7 +26,7 @@ use PolylangStringExtractor\Extractors\WPCode;
  * @subpackage PolylangStringExtractor/tests/extractors
  * @author     Motivast <support@motivast.com>
  */
-class WPCode_Test extends \WP_UnitTestCase {
+class WPCode_Test extends TestCase {
 
 	/**
 	 * Test if WPCode extractor return proper string for gettext

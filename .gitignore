@@ -9,4 +9,5 @@ wordpress-dev
 vendor
 
 # Reports
+coverage
 clover.xml
