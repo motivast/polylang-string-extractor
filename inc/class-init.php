@@ -150,6 +150,8 @@ class Init extends Container {
 	 */
 	public function run() {
 
+		$this['activation']->run();
+
 		$this['loader']->run();
 	}
 }

@@ -23,15 +23,19 @@ namespace PolylangStringExtractor;
 class Activation {
 
 	/**
-	 * Theme container.
+	 * Plugin container
+	 *
+	 * @var Init
+	 */
+	private $plugin;
+
+	/**
+	 * Activation constructor.
 	 *
 	 * @param Init $plugin PolylangStringExtractor plugin container.
 	 */
 	public function __construct( $plugin ) {
-
 		$this->plugin = $plugin;
-
-		$this->define_hooks();
 	}
 
 	/**
@@ -42,9 +46,9 @@ class Activation {
 	}
 
 	/**
-	 * Define hooks for setup class
+	 * Initialize hookable class
 	 */
-	private function define_hooks() {
+	public function run() {
 
 		$plugin_slug 	 = str_replace( '_', '-', $this->plugin['id'] );
 		$plugin_basename = sprintf( '%s/%s.php', $plugin_slug, $plugin_slug );
