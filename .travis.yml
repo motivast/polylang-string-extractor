@@ -28,13 +28,14 @@ cache:
 install:
     - composer install --ignore-platform-reqs
 
-script: ./vendor/bin/phing tests
-
 jobs:
   include:
     - stage: inspect
       script: ./vendor/bin/phing inspect
       php: 7.0
+      env: WP_VERSION=4.9
+    - stage: test
+      script: ./vendor/bin/phing tests:coverage
 
 stages:
   - inspect
