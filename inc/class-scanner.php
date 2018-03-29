@@ -1,6 +1,6 @@
 <?php
 /**
- * Class provided for setup symfony forms
+ * Class provided for scanning current theme and active plugins for translations
  *
  * @link       http://motivast.com
  * @since      1.0.0
@@ -17,7 +17,7 @@ use Gettext\Translations;
 use PolylangStringExtractor\Extractors\WPCode;
 
 /**
- * Class provided for setup symfony forms
+ * Class provided for scanning current theme and active plugins for translations
  *
  * @since      1.0.0
  * @package    PolylangStringExtractor
@@ -27,7 +27,14 @@ use PolylangStringExtractor\Extractors\WPCode;
 class Scanner {
 
 	/**
-	 * Theme container.
+	 * Plugin container
+	 *
+	 * @var Init
+	 */
+	private $plugin;
+
+	/**
+	 * Scanner constructor.
 	 *
 	 * @param Init $plugin PolylangStringExtractor plugin container.
 	 */
@@ -48,9 +55,7 @@ class Scanner {
 
 		$strings = array_merge( $theme_strings, $plugins_strings );
 
-		$option_name = sprintf( '%s_strings', $this->plugin['id'] );
-
-		update_option( $option_name , $strings );
+		update_option( $this->plugin['strings_option_name'] , $strings );
 	}
 
 	/**
@@ -99,27 +104,27 @@ class Scanner {
 
 		$all_translations = array();
 
-		$plugins_dir = WP_PLUGIN_DIR;
 		$active_plugins = get_option( 'active_plugins' );
 
 		foreach ( $active_plugins as $plugin ) {
 
-			$plugin_path = $plugins_dir . DIRECTORY_SEPARATOR . $plugin;
+			$plugin_path = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $plugin;
 			$plugin_info = get_plugin_data( $plugin_path );
 
-			if ( isset( $plugin_info['TextDomain'] ) && ! empty( $plugin_info['TextDomain'] ) ) {
-
-				$php_files = $this->get_php_files( plugin_dir_path( $plugin_path ) );
-
-				$translations = new Translations();
-				$translations->setDomain( esc_html( $plugin_info['TextDomain'] ) );
-
-				foreach ( $php_files as $file ) {
-					WPCode::fromFile( $file, $translations );
-				}
-
-				$all_translations = array_merge( $all_translations, $this->format_to_polylang( $translations ) );
+			if ( ! isset( $plugin_info['TextDomain'] ) || empty( $plugin_info['TextDomain'] ) ) {
+				continue;
 			}
+
+			$php_files = $this->get_php_files( plugin_dir_path( $plugin_path ) );
+
+			$translations = new Translations();
+			$translations->setDomain( esc_html( $plugin_info['TextDomain'] ) );
+
+			foreach ( $php_files as $file ) {
+				WPCode::fromFile( $file, $translations );
+			}
+
+			$all_translations = array_merge( $all_translations, $this->format_to_polylang( $translations ) );
 		}
 
 		return $all_translations;
@@ -145,7 +150,9 @@ class Scanner {
 		/**
 		 * Flatten multidimensional array from iterator
 		 */
-		array_walk_recursive( iterator_to_array( $regex ), function( $file ) use ( &$flattened ) {
+		$files = iterator_to_array( $regex );
+
+		array_walk_recursive( $files, function( $file ) use ( &$flattened ) {
 			$flattened[] = $file;
 		} );
 
