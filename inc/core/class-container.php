@@ -11,7 +11,7 @@
  * @author     Motivast <support@motivast.com>
  */
 
-namespace PolylangStringExtractor;
+namespace PolylangStringExtractor\Core;
 
 /**
  * Container class provided for keeping all plugin variables, classes in one

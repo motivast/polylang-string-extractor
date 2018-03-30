@@ -14,6 +14,8 @@
 
 namespace PolylangStringExtractor;
 
+use PolylangStringExtractor\Core\Container;
+
 /**
  * The core plugin class.
  *
@@ -83,15 +85,6 @@ class Init extends Container {
 		 */
 		$this['version'] = '1.0.0';
 
-		/**
-		 * Load translations before anything. Some plugins like acf do not attach
-		 * into any hook so translations does not has a chance to work.
-		 */
-		$this->set_locale();
-
-		$this->load_core_dependencies();
-		$this->load_dependencies();
-
 	}
 
 	/**
@@ -149,6 +142,15 @@ class Init extends Container {
 	 * @since    1.0.0
 	 */
 	public function run() {
+
+		/**
+		 * Load translations before anything. Some plugins like acf do not attach
+		 * into any hook so translations does not has a chance to work.
+		 */
+		$this->set_locale();
+
+		$this->load_core_dependencies();
+		$this->load_dependencies();
 
 		$this['activation']->run();
 		$this['polylang']->run();
