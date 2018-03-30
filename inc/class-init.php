@@ -151,6 +151,7 @@ class Init extends Container {
 	public function run() {
 
 		$this['activation']->run();
+		$this['polylang']->run();
 
 		$this['loader']->run();
 	}
