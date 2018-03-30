@@ -15,6 +15,7 @@
 namespace PolylangStringExtractor;
 
 use PolylangStringExtractor\Core\Container;
+use PolylangStringExtractor\Core\I18n;
 
 /**
  * The core plugin class.
@@ -99,7 +100,7 @@ class Init extends Container {
 	private function set_locale() {
 
 		$this['i18n'] = new I18n( $this );
-		$this['i18n']->load_theme_textdomain();
+		$this['i18n']->load_plugin_textdomain();
 
 	}
 

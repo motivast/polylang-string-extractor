@@ -13,7 +13,7 @@
  * @author     Motivast <support@motivast.com>
  */
 
-namespace PolylangStringExtractor;
+namespace PolylangStringExtractor\Core;
 
 /**
  * Define the internationalization functionality.
@@ -53,11 +53,12 @@ class I18n {
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_theme_textdomain() {
+	public function load_plugin_textdomain() {
 
-		load_theme_textdomain(
+		load_plugin_textdomain(
 			'polylang_string_extractor',
-			$this->plugin['path'] . '/languages'
+			false,
+			str_replace( '_', '-', $this->plugin['id'] ) . '/languages'
 		);
 	}
 }
