@@ -27,15 +27,6 @@
 		<echo msg="Symlink proper directories" />
 
 		<!-- ============================================  -->
-		<!-- Symlink required vendor files                 -->
-		<!-- ============================================  -->
-		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress" overwrite="true" />
-		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress-Core" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress-Core" overwrite="true" />
-		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress-Docs" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress-Docs" overwrite="true" />
-		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress-Extra" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress-Extra" overwrite="true" />
-		<symlink target="${project.basedir}/vendor/wp-coding-standards/wpcs/WordPress-VIP" link="${project.basedir}/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/WordPress-VIP" overwrite="true" />
-
-		<!-- ============================================  -->
 		<!-- Symlink plugin itself to wp plugins dir       -->
 		<!-- ============================================  -->
 		<symlink target="${project.basedir}" link="${project.basedir}/wordpress/wp-content/plugins/${plugin}"  overwrite="true" />
@@ -149,7 +140,7 @@
 	<!-- ============================================  -->
 	<target name="inspect:lint" description="Check possible syntax errors in php files using php -l command." depends="setup:symlink">
 		<echo msg="Check possible syntax errors" />
-		<exec command="for i in $(find . \( -path ./vendor -o -path ./wordpress -o -path ./wordpress-dev \) -prune -o -name '*.php' -print); do php -l $i; done" passthru="true" checkreturn="true" />
+		<exec command="for i in $(find . \( -path ./vendor -o -path ./wordpress \) -prune -o -name '*.php' -print); do php -l $i; done" passthru="true" checkreturn="true" />
 	</target>
 
 	<!-- ============================================  -->
@@ -157,7 +148,7 @@
 	<!-- ============================================  -->
 	<target name="inspect:phpcs" description="Check posible code styling errors in php files using phpcs comamnd." depends="setup:symlink">
 		<echo msg="Check posible code styling errors" />
-		<exec command="./vendor/bin/phpcs ./  --extensions=php --ignore=${project.basedir}/vendor,${project.basedir}/wordpress,${project.basedir}/wordpress-dev --standard=./rules/phpcs.xml" passthru="true" checkreturn="true" />
+		<exec command="./vendor/bin/phpcs ./  --extensions=php --ignore=${project.basedir}/vendor,${project.basedir}/wordpress --standard=./rules/phpcs.xml" passthru="true" checkreturn="true" />
 	</target>
 
 	<!-- ============================================  -->
@@ -174,7 +165,7 @@
 	<!-- ============================================  -->
 	<target name="inspect:phpcpd" description="Check posible duplicates in php files using phpcpd comamnd." depends="setup:symlink">
 		<echo msg="Check posible duplicates" />
-		<exec command="./vendor/bin/phpcpd ./ --exclude vendor --exclude wordpress --exclude wordpress-dev" passthru="true" checkreturn="false" />
+		<exec command="./vendor/bin/phpcpd ./ --exclude vendor --exclude wordpress" passthru="true" checkreturn="false" />
 	</target>
 
 	<!-- ============================================  -->
