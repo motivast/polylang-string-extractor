@@ -36,7 +36,7 @@ class Activation_Test extends TestCase {
 	function test_activation_will_add_activation_hook() {
 
 		$init = $this->mock_init();
-		$init['loader'] = Mockery::mock( '\PolylangStringExtractor\Loader', [ $init ] );
+		$init['loader'] = Mockery::mock( '\PolylangStringExtractor\Core\Loader', [ $init ] );
 
 		$activation = new Activation( $init );
 

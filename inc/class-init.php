@@ -16,6 +16,7 @@ namespace PolylangStringExtractor;
 
 use PolylangStringExtractor\Core\Container;
 use PolylangStringExtractor\Core\I18n;
+use PolylangStringExtractor\Core\Loader;
 
 /**
  * The core plugin class.

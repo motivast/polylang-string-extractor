@@ -58,7 +58,7 @@ class Polylang_Test extends TestCase {
 	function test_polylang_will_add_hooks() {
 
 		$init = $this->mock_init();
-		$init['loader'] = Mockery::mock( '\PolylangStringExtractor\Loader', [ $init ] );
+		$init['loader'] = Mockery::mock( '\PolylangStringExtractor\Core\Loader', [ $init ] );
 
 		$polylang = new Polylang( $init );
 

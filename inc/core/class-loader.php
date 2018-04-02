@@ -10,7 +10,7 @@
  * @author     Motivast <support@motivast.com>
  */
 
-namespace PolylangStringExtractor;
+namespace PolylangStringExtractor\Core;
 
 /**
  * Register all actions and filters for the theme.
