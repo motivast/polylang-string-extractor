@@ -14,7 +14,7 @@ namespace PolylangStringExtractorTests\Core;
 
 use PHPUnit\Framework\TestCase;
 
-use PolylangStringExtractor\Init;
+use PolylangStringExtractor\Core\Init;
 
 /**
  * Class to test core container class.

@@ -12,7 +12,7 @@
 
 namespace PolylangStringExtractorTests\Core;
 
-use PHPUnit\Framework\TestCase;
+use WP_Mock\Tools\TestCase;
 
 use PolylangStringExtractor\Core\Loader;
 

@@ -48,11 +48,12 @@ function polylang_string_extractor() {
 
 	static $plugin;
 
-	if ( isset( $plugin ) && $plugin instanceof \PolylangStringExtractor\Init ) {
+	if ( isset( $plugin ) && $plugin instanceof \PolylangStringExtractor\Core\Init ) {
 		return $plugin;
 	}
 
-	$plugin = new \PolylangStringExtractor\Init();
+	$plugin = new \PolylangStringExtractor\Core\Init();
+	$plugin->load();
 	$plugin->run();
 
 }

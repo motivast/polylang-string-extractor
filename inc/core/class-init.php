@@ -12,11 +12,11 @@
  * @subpackage PolylangStringExtractor/inc
  */
 
-namespace PolylangStringExtractor;
+namespace PolylangStringExtractor\Core;
 
-use PolylangStringExtractor\Core\Container;
-use PolylangStringExtractor\Core\I18n;
-use PolylangStringExtractor\Core\Loader;
+use PolylangStringExtractor\Activation;
+use PolylangStringExtractor\Scanner;
+use PolylangStringExtractor\Polylang;
 
 /**
  * The core plugin class.
@@ -69,7 +69,7 @@ class Init extends Container {
 		 * @since    1.0.0
 		 * @var      string $name The string used to display theme name.
 		 */
-		$this['name'] = 'Polylang string extractor';
+		$this['name'] = 'Polylang String Extractor';
 
 		/**
 		 * Option name for translations
@@ -139,11 +139,14 @@ class Init extends Container {
 	}
 
 	/**
-	 * Run the loader to execute all of the hooks with WordPress.
+	 * Load and init all dependencies
+	 *
+	 * This method is public because we need it during tests without running
+	 * run method.
 	 *
 	 * @since    1.0.0
 	 */
-	public function run() {
+	public function load() {
 
 		/**
 		 * Load translations before anything. Some plugins like acf do not attach
@@ -153,6 +156,14 @@ class Init extends Container {
 
 		$this->load_core_dependencies();
 		$this->load_dependencies();
+	}
+
+	/**
+	 * Run the loader to execute all of the hooks with WordPress.
+	 *
+	 * @since    1.0.0
+	 */
+	public function run() {
 
 		$this['activation']->run();
 		$this['polylang']->run();
