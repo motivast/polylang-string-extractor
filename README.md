@@ -1,4 +1,4 @@
-# Polylang String Extractor [![travis](https://img.shields.io/travis/motivast/polylang-string-extractor.svg)](https://travis-ci.org/motivast/polylang-string-extractor/)
+# Polylang String Extractor [![travis](https://img.shields.io/travis/motivast/polylang-string-extractor.svg)](https://travis-ci.org/motivast/polylang-string-extractor/) ![Code Coverage](https://img.shields.io/codeclimate/coverage/motivast/polylang-string-extractor.svg)
 Polylang String Extractor is a plugin provided for extract translatable strings from WordPress functions to Polylang.
 
 Go to [get started](#user-content-get-started) section to see a simple example.
