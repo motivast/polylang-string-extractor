@@ -5,6 +5,8 @@
 	convertWarningsToExceptions="true"
 
 	bootstrap="tests/bootstrap.php"
+
+	beStrictAboutTestsThatDoNotTestAnything="false"
 	>
 
 	<!-- It is mandatory to configure a whitelist for telling PHPUnit which sourcecode files to include in the code coverage report. -->

@@ -77,12 +77,12 @@ class Scanner_Test extends TestCase {
 		$theme = new \WP_Theme();
 		$theme_full_path = dirname( __FILE__ ) . '/sample/themes/test';
 
-		\WP_Mock::wpFunction( 'wp_get_theme', array(
+		\WP_Mock::userFunction( 'wp_get_theme', array(
 			'times' => 1,
 			'return' => $theme,
 		) );
 
-		\WP_Mock::wpFunction( 'get_template_directory', array(
+		\WP_Mock::userFunction( 'get_template_directory', array(
 			'times' => 1,
 			'return' => $theme_full_path,
 		) );
@@ -114,7 +114,7 @@ class Scanner_Test extends TestCase {
 		$plugin_path = 'test/test.php';
 		$plugin_full_path = WP_PLUGIN_DIR . '/' . $plugin_path;
 
-		\WP_Mock::wpFunction( 'get_option', array(
+		\WP_Mock::userFunction( 'get_option', array(
 			'times' => 1,
 			'return' => array( $plugin_path ),
 		) );
@@ -122,7 +122,7 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock get_plugin_data function
 		 */
-		\WP_Mock::wpFunction( 'get_plugin_data', array(
+		\WP_Mock::userFunction( 'get_plugin_data', array(
 			'times' => 1,
 			'args' => $plugin_full_path,
 			'return' => array(
@@ -133,7 +133,7 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock plugin_dir_path function
 		 */
-		\WP_Mock::wpFunction( 'plugin_dir_path', array(
+		\WP_Mock::userFunction( 'plugin_dir_path', array(
 			'times' => 1,
 			'args' => $plugin_full_path,
 			'return' => rtrim( dirname( $plugin_full_path ), '/\\' ) . '/',
@@ -142,7 +142,7 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock esc_html function
 		 */
-		\WP_Mock::wpFunction( 'esc_html', array(
+		\WP_Mock::userFunction( 'esc_html', array(
 			'times' => 1,
 			'args' => $plugin,
 			'return' => $plugin,
@@ -198,7 +198,7 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock WP_Theme object and wp_get_theme function
 		 */
-		\WP_Mock::wpFunction( 'wp_get_theme', array(
+		\WP_Mock::userFunction( 'wp_get_theme', array(
 			'times' => 1,
 			'return' => null,
 		) );
@@ -206,7 +206,7 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock get active plugins
 		 */
-		\WP_Mock::wpFunction( 'get_option', array(
+		\WP_Mock::userFunction( 'get_option', array(
 			'times' => 1,
 			'return' => array(),
 		) );
@@ -243,7 +243,7 @@ class Scanner_Test extends TestCase {
 		 */
 		$theme = new \WP_Theme( false );
 
-		\WP_Mock::wpFunction( 'wp_get_theme', array(
+		\WP_Mock::userFunction( 'wp_get_theme', array(
 			'times' => 1,
 			'return' => $theme,
 		) );
@@ -251,7 +251,7 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock get active plugins
 		 */
-		\WP_Mock::wpFunction( 'get_option', array(
+		\WP_Mock::userFunction( 'get_option', array(
 			'times' => 1,
 			'return' => array(),
 		) );
@@ -281,7 +281,7 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock WP_Theme object and wp_get_theme function
 		 */
-		\WP_Mock::wpFunction( 'wp_get_theme', array(
+		\WP_Mock::userFunction( 'wp_get_theme', array(
 			'times' => 1,
 			'return' => false,
 		) );
@@ -292,7 +292,7 @@ class Scanner_Test extends TestCase {
 		$plugin_path = 'test/test.php';
 		$plugin_full_path = WP_PLUGIN_DIR . '/' . $plugin_path;
 
-		\WP_Mock::wpFunction( 'get_option', array(
+		\WP_Mock::userFunction( 'get_option', array(
 			'times' => 1,
 			'return' => array( $plugin_path ),
 		) );
@@ -300,7 +300,7 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock get_plugin_data function
 		 */
-		\WP_Mock::wpFunction( 'get_plugin_data', array(
+		\WP_Mock::userFunction( 'get_plugin_data', array(
 			'times' => 1,
 			'args' => $plugin_full_path,
 			'return' => array(), // Return plugin data without textdomain.
@@ -337,7 +337,7 @@ class Scanner_Test extends TestCase {
 	 */
 	private function mock_update_option( $option_name, $option_value ) {
 
-		\WP_Mock::wpFunction( 'update_option', array(
+		\WP_Mock::userFunction( 'update_option', array(
 			'times' => 1,
 			'args' => array( $option_name, $option_value ),
 			'return' => true,

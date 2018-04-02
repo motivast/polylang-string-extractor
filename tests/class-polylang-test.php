@@ -102,7 +102,7 @@ class Polylang_Test extends TestCase {
 		/**
 		 * Mock get_option function
 		 */
-		\WP_Mock::wpFunction( 'get_option', array(
+		\WP_Mock::userFunction( 'get_option', array(
 			'times' => 1,
 			'args' => array( 'polylang_string_extractor_strings', array() ),
 			'return' => $extractor_strings,
@@ -147,7 +147,7 @@ class Polylang_Test extends TestCase {
 		/**
 		 * Mock get_option function
 		 */
-		\WP_Mock::wpFunction( 'get_option', array(
+		\WP_Mock::userFunction( 'get_option', array(
 			'times' => 1,
 			'args' => array( 'polylang_string_extractor_strings', array() ),
 			'return' => $this->get_extractor_strings(),

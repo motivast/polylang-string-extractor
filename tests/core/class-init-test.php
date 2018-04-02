@@ -109,7 +109,7 @@ class Init_Test extends TestCase {
 		/**
 		 * Mock load_plugin_textdomain function
 		 */
-		\WP_Mock::wpFunction( 'load_plugin_textdomain', array(
+		\WP_Mock::userFunction( 'load_plugin_textdomain', array(
 			'times' => 1,
 			'args' => array(
 				'polylang_string_extractor',

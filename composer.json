@@ -26,8 +26,8 @@
 
       "wp-cli/wp-cli": "1.5.0",
 
-      "phpunit/phpunit": "5.7.21",
-      "10up/wp_mock": "0.1.1",
+      "phpunit/phpunit": "6.5.7",
+      "10up/wp_mock": "0.3.0",
 
       "squizlabs/php_codesniffer": "2.8.1",
       "wimg/php-compatibility": "8.1.0",
@@ -36,7 +36,6 @@
       "pdepend/pdepend": "2.2.4",
       "phploc/phploc": "4.0.0",
       "phpmd/phpmd": "2.4.2",
-      "friendsofphp/php-cs-fixer": "1.11.4",
 
       "wpackagist-plugin/polylang": "2.3.3",
       "wpackagist-theme/twentyseventeen": "1.4.0"
