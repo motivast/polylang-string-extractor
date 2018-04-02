@@ -34,12 +34,6 @@ class WPCode extends PhpCode implements ExtractorInterface {
 	 * @var array
 	 */
 	public static $options = [
-		// - false: to not extract comments
-		// - empty string: to extract all comments
-		// - non-empty string: to extract comments that start with that string
-		// - array with strings to extract comments format.
-		'extractComments' => false,
-
 		'constants' => [],
 
 		'functions' => [
@@ -78,10 +72,6 @@ class WPCode extends PhpCode implements ExtractorInterface {
 		$options += static::$options;
 
 		$functions = new WPFunctionsScanner( $string );
-
-		if ( false !== $options['extractComments'] ) {
-			$functions->enableCommentsExtraction( $options['extractComments'] );
-		}
 
 		$functions->saveGettextFunctions( $translations, $options );
 	}

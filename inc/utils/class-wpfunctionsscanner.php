@@ -53,9 +53,10 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 			$plural = null;
 			$number = null;
 
+			// TODO: Think about translations with no textdomain.
 			switch ( $functions[ $name ] ) {
 				case 'wp_translate':
-					if ( ! isset( $args[0] ) ) {
+					if ( ! isset( $args[1] ) ) {
 						continue 2;
 					}
 
@@ -64,7 +65,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 
 				case 'wp_n_translate':
 
-					if ( ! isset( $args[1] ) ) {
+					if ( ! isset( $args[3] ) ) {
 						continue 2;
 					}
 
@@ -72,7 +73,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 					break;
 
 				case 'wp_x_translate':
-					if ( ! isset( $args[1] ) ) {
+					if ( ! isset( $args[2] ) ) {
 						continue 2;
 					}
 
@@ -80,7 +81,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 					break;
 
 				case 'wp_nx_translate':
-					if ( ! isset( $args[3] ) ) {
+					if ( ! isset( $args[4] ) ) {
 						continue 2;
 					}
 
@@ -89,7 +90,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 
 				case 'wp_n_noop_translate':
 
-					if ( ! isset( $args[1] ) ) {
+					if ( ! isset( $args[2] ) ) {
 						continue 2;
 					}
 
@@ -98,7 +99,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 
 				case 'wp_nx_noop_translate':
 
-					if ( ! isset( $args[2] ) ) {
+					if ( ! isset( $args[3] ) ) {
 						continue 2;
 					}
 
@@ -112,12 +113,6 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 			if ( '' !== (string) $original && $domain === $translations->getDomain() ) {
 				$translation = $translations->insert( $context, $original, $plural );
 				$translation->addReference( $file, $line );
-
-				if ( isset( $function[3] ) ) {
-					foreach ( $function[3] as $extracted_comment ) {
-						$translation->addExtractedComment( $extracted_comment );
-					}
-				}
 			}
 		}// End foreach().
 	}
