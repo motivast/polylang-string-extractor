@@ -12,7 +12,7 @@
  * @package           Polylang_String_Extractor
  *
  * @wordpress-plugin
- * Plugin Name:       Polylang string extractor
+ * Plugin Name:       Polylang String Extractor
  * Plugin URI:        polylang-string-extractor
  * Description:       Polylang String Extractor is a plugin provided for extract translatable strings from WordPress functions to Polylang.
  * Version:           1.0.0
