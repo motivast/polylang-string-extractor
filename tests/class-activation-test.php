@@ -33,9 +33,9 @@ class Activation_Test extends TestCase {
 	/**
 	 * Test if activation class will add hook for plugin activation
 	 */
-	function test_activation_will_add_activation_hook() {
+	public function test_activation_will_add_activation_hook() {
 
-		$init = $this->mock_init();
+		$init           = $this->mock_init();
 		$init['loader'] = Mockery::mock( '\PolylangStringExtractor\Core\Loader', [ $init ] );
 
 		$activation = new Activation( $init );
@@ -44,7 +44,7 @@ class Activation_Test extends TestCase {
 		 * Expect that loader will call `add_action` method with
 		 * `activate_...` hook and callback method.
 		 */
-		$plugin_slug 	 = str_replace( '_', '-', $init['id'] );
+		$plugin_slug     = str_replace( '_', '-', $init['id'] );
 		$plugin_basename = sprintf( '%s/%s.php', $plugin_slug, $plugin_slug );
 		$hook            = sprintf( 'activate_%s', $plugin_basename );
 
@@ -58,9 +58,9 @@ class Activation_Test extends TestCase {
 	/**
 	 * Test if activation class will call scan on activate call
 	 */
-	function test_activation_will_call_scan_on_activate_call() {
+	public function test_activation_will_call_scan_on_activate_call() {
 
-		$init = $this->mock_init();
+		$init            = $this->mock_init();
 		$init['scanner'] = Mockery::mock( '\PolylangStringExtractor\Scanner', [ $init ] );
 
 		$activation = new Activation( $init );

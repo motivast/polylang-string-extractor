@@ -140,10 +140,10 @@ class Polylang {
 		/**
 		 * Merge polylang translate strings with strings from extractor
 		 */
-		$this->plugin['loader']->add_filter( 'pll_get_strings' , $this, 'get_strings' );
+		$this->plugin['loader']->add_filter( 'pll_get_strings', $this, 'get_strings' );
 
-		$this->plugin['loader']->add_action( 'pll_language_defined' , $this, 'load_strings_translations', 6 ); // Execute after polylang.
-		$this->plugin['loader']->add_action( 'change_locale' , $this, 'load_strings_translations', 11 ); // Execute after polylang.
+		$this->plugin['loader']->add_action( 'pll_language_defined', $this, 'load_strings_translations', 6 ); // Execute after polylang.
+		$this->plugin['loader']->add_action( 'change_locale', $this, 'load_strings_translations', 11 ); // Execute after polylang.
 	}
 
 	/**

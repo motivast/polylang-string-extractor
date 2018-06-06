@@ -31,23 +31,27 @@ class I18n_Test extends TestCase {
 	/**
 	 * Test if we can save to container
 	 */
-	function test_i18n_is_calling_method() {
+	public function test_i18n_is_calling_method() {
 
 		/**
 		 * Mock load_plugin_textdomain function
 		 */
-		\WP_Mock::userFunction( 'load_plugin_textdomain', array(
-			'times' => 1,
-			'args' => array(
-				'polylang_string_extractor',
-				false,
-				'polylang-string-extractor/languages',
-			),
-		) );
+		\WP_Mock::userFunction(
+			'load_plugin_textdomain', array(
+				'times' => 1,
+				'args'  => array(
+					'polylang_string_extractor',
+					false,
+					'polylang-string-extractor/languages',
+				),
+			)
+		);
 
-		$i18n = new I18n( array(
-			'id' => 'polylang_string_extractor',
-		) );
+		$i18n = new I18n(
+			array(
+				'id' => 'polylang_string_extractor',
+			)
+		);
 		$i18n->load_plugin_textdomain();
 	}
 }

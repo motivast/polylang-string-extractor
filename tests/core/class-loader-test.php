@@ -45,9 +45,9 @@ class Loader_Test extends TestCase {
 	/**
 	 * Test if loader is calling add_action function
 	 */
-	function test_loader_is_calling_add_action() {
+	public function test_loader_is_calling_add_action() {
 
-		$object = new \stdClass();
+		$object              = new \stdClass();
 		$object->some_method = function() {};
 
 		/**
@@ -64,9 +64,9 @@ class Loader_Test extends TestCase {
 	/**
 	 * Test if loader is calling add_filter function
 	 */
-	function test_loader_is_calling_add_filter() {
+	public function test_loader_is_calling_add_filter() {
 
-		$object = new \stdClass();
+		$object              = new \stdClass();
 		$object->some_method = function() {};
 
 		/**

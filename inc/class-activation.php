@@ -50,13 +50,13 @@ class Activation {
 	 */
 	public function run() {
 
-		$plugin_slug 	 = str_replace( '_', '-', $this->plugin['id'] );
+		$plugin_slug     = str_replace( '_', '-', $this->plugin['id'] );
 		$plugin_basename = sprintf( '%s/%s.php', $plugin_slug, $plugin_slug );
 		$hook            = sprintf( 'activate_%s', $plugin_basename );
 
 		/**
 		 * Simulate register_activation_hook function with our logic
 		 */
-		$this->plugin['loader']->add_action( $hook , $this, 'activate' );
+		$this->plugin['loader']->add_action( $hook, $this, 'activate' );
 	}
 }

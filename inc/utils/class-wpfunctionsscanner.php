@@ -38,7 +38,7 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 	public function saveGettextFunctions( Translations $translations, array $options ) {
 
 		$functions = $options['functions'];
-		$file = $options['file'];
+		$file      = $options['file'];
 
 		foreach ( $this->getFunctions( $options['constants'] ) as $function ) {
 			list($name, $line, $args) = $function;
@@ -47,11 +47,11 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 				continue;
 			}
 
-			$domain = null;
-			$context = null;
+			$domain   = null;
+			$context  = null;
 			$original = null;
-			$plural = null;
-			$number = null;
+			$plural   = null;
+			$number   = null;
 
 			// TODO: Think about translations with no textdomain.
 			switch ( $functions[ $name ] ) {
@@ -64,7 +64,6 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 					break;
 
 				case 'wp_n_translate':
-
 					if ( ! isset( $args[3] ) ) {
 						continue 2;
 					}
@@ -89,7 +88,6 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 					break;
 
 				case 'wp_n_noop_translate':
-
 					if ( ! isset( $args[2] ) ) {
 						continue 2;
 					}
@@ -98,7 +96,6 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 					break;
 
 				case 'wp_nx_noop_translate':
-
 					if ( ! isset( $args[3] ) ) {
 						continue 2;
 					}
@@ -108,12 +105,12 @@ class WPFunctionsScanner extends PhpFunctionsScanner {
 
 				default:
 					throw new \Exception( sprintf( 'Not valid function %s', $functions[ $name ] ) );
-			}// End switch().
+			}
 
 			if ( '' !== (string) $original && $domain === $translations->getDomain() ) {
 				$translation = $translations->insert( $context, $original, $plural );
 				$translation->addReference( $file, $line );
 			}
-		}// End foreach().
+		}
 	}
 }

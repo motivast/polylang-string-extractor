@@ -31,9 +31,9 @@ class WPCode_Test extends TestCase {
 	/**
 	 * Test if WPCode extractor return proper string for gettext
 	 */
-	function test_wpcode_extractor_for_gettext() {
+	public function test_wpcode_extractor_for_gettext() {
 
-		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
+		$path         = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
 		$translations->setDomain( 'pllse' );
 
@@ -55,9 +55,9 @@ class WPCode_Test extends TestCase {
 	/**
 	 * Test if WPCode extractor return proper string for gettext with context
 	 */
-	function test_wpcode_extractor_for_gettext_with_context() {
+	public function test_wpcode_extractor_for_gettext_with_context() {
 
-		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
+		$path         = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
 		$translations->setDomain( 'pllse' );
 
@@ -76,9 +76,9 @@ class WPCode_Test extends TestCase {
 	/**
 	 * Test if WPCode extractor return proper string for gettext plurals
 	 */
-	function test_wpcode_extractor_for_gettext_plurals() {
+	public function test_wpcode_extractor_for_gettext_plurals() {
 
-		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
+		$path         = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
 		$translations->setDomain( 'pllse' );
 
@@ -98,9 +98,9 @@ class WPCode_Test extends TestCase {
 	/**
 	 * Test if WPCode extractor return proper string for gettext plurals with context
 	 */
-	function test_wpcode_extractor_for_gettext_plurals_with_context() {
+	public function test_wpcode_extractor_for_gettext_plurals_with_context() {
 
-		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
+		$path         = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
 		$translations->setDomain( 'pllse' );
 
@@ -120,9 +120,9 @@ class WPCode_Test extends TestCase {
 	/**
 	 * Test if WPCode extractor return proper string for gettext noop plurals
 	 */
-	function test_wpcode_extractor_for_gettext_noop_plurals() {
+	public function test_wpcode_extractor_for_gettext_noop_plurals() {
 
-		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
+		$path         = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
 		$translations->setDomain( 'pllse' );
 
@@ -139,9 +139,9 @@ class WPCode_Test extends TestCase {
 	/**
 	 * Test if WPCode extractor return proper string for gettext noop plurals with context
 	 */
-	function test_wpcode_extractor_for_gettext_noop_plurals_with_context() {
+	public function test_wpcode_extractor_for_gettext_noop_plurals_with_context() {
 
-		$path 		  = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
+		$path         = realpath( dirname( __FILE__ ) . '/../sample/page.php' );
 		$translations = new \Gettext\Translations();
 		$translations->setDomain( 'pllse' );
 

@@ -31,11 +31,11 @@ class Container_Test extends TestCase {
 	/**
 	 * Test if we can save to container
 	 */
-	function test_saving_to_container() {
+	public function test_saving_to_container() {
 
 		$container = new Init();
 
-		$container['key_int'] = 1;
+		$container['key_int']    = 1;
 		$container['key_string'] = 'String';
 		$container['key_object'] = new \stdClass();
 
@@ -47,11 +47,11 @@ class Container_Test extends TestCase {
 	/**
 	 * Test if we can check if key exist in container
 	 */
-	function test_existence_in_container() {
+	public function test_existence_in_container() {
 
 		$container = new Init();
 
-		$container['key_int'] = 1;
+		$container['key_int']    = 1;
 		$container['key_string'] = 'String';
 		$container['key_object'] = new \stdClass();
 
@@ -65,11 +65,11 @@ class Container_Test extends TestCase {
 	/**
 	 * Test if we can delete key
 	 */
-	function test_deleting_from_container() {
+	public function test_deleting_from_container() {
 
 		$container = new Init();
 
-		$container['key_int'] = 1;
+		$container['key_int']    = 1;
 		$container['key_string'] = 'String';
 		$container['key_object'] = new \stdClass();
 

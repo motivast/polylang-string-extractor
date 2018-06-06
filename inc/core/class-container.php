@@ -82,6 +82,6 @@ abstract class Container implements \ArrayAccess {
 	 */
 	public function offsetGet( $offset ) {
 
-		return isset( $this->container[ $offset ] ) ? ($this->container[ $offset ]) : null;
+		return isset( $this->container[ $offset ] ) ? ( $this->container[ $offset ] ) : null;
 	}
 }

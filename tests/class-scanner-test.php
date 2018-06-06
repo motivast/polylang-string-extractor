@@ -48,7 +48,7 @@ class Scanner_Test extends TestCase {
 	/**
 	 * Test if scanner class will scan directories for php files
 	 */
-	function test_scanner_will_scan_directories() {
+	public function test_scanner_will_scan_directories() {
 
 		/**
 		 * WP_Theme mock class
@@ -63,7 +63,7 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Array of translation string from theme and plugins
 		 */
-		$strings = array();
+		$strings            = array();
 		$test_string_domain = 'test';
 
 		/**
@@ -74,18 +74,22 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock WP_Theme object and wp_get_theme function
 		 */
-		$theme = new \WP_Theme();
+		$theme           = new \WP_Theme();
 		$theme_full_path = dirname( __FILE__ ) . '/sample/themes/test';
 
-		\WP_Mock::userFunction( 'wp_get_theme', array(
-			'times' => 1,
-			'return' => $theme,
-		) );
+		\WP_Mock::userFunction(
+			'wp_get_theme', array(
+				'times'  => 1,
+				'return' => $theme,
+			)
+		);
 
-		\WP_Mock::userFunction( 'get_template_directory', array(
-			'times' => 1,
-			'return' => $theme_full_path,
-		) );
+		\WP_Mock::userFunction(
+			'get_template_directory', array(
+				'times'  => 1,
+				'return' => $theme_full_path,
+			)
+		);
 
 		/**
 		 * After scanning theme directory string array should have these values
@@ -94,59 +98,67 @@ class Scanner_Test extends TestCase {
 		$test_theme_string_2 = 'Theme subdir test string __';
 
 		$strings[ md5( $test_theme_string_1 ) ] = array(
-			'name' => '',
-			'string' => $test_theme_string_1,
-			'context' => $test_string_domain,
+			'name'      => '',
+			'string'    => $test_theme_string_1,
+			'context'   => $test_string_domain,
 			'multiline' => false,
 		);
 
 		$strings[ md5( $test_theme_string_2 ) ] = array(
-			'name' => '',
-			'string' => $test_theme_string_2,
-			'context' => $test_string_domain,
+			'name'      => '',
+			'string'    => $test_theme_string_2,
+			'context'   => $test_string_domain,
 			'multiline' => false,
 		);
 
 		/**
 		 * Mock get_options function
 		 */
-		$plugin = 'test';
-		$plugin_path = 'test/test.php';
+		$plugin           = 'test';
+		$plugin_path      = 'test/test.php';
 		$plugin_full_path = WP_PLUGIN_DIR . '/' . $plugin_path;
 
-		\WP_Mock::userFunction( 'get_option', array(
-			'times' => 1,
-			'return' => array( $plugin_path ),
-		) );
+		\WP_Mock::userFunction(
+			'get_option', array(
+				'times'  => 1,
+				'return' => array( $plugin_path ),
+			)
+		);
 
 		/**
 		 * Mock get_plugin_data function
 		 */
-		\WP_Mock::userFunction( 'get_plugin_data', array(
-			'times' => 1,
-			'args' => $plugin_full_path,
-			'return' => array(
-				'TextDomain' => 'test',
-			),
-		) );
+		\WP_Mock::userFunction(
+			'get_plugin_data', array(
+				'times'  => 1,
+				'args'   => $plugin_full_path,
+				'return' => array(
+					'TextDomain' => 'test',
+				),
+			)
+		);
 
 		/**
 		 * Mock plugin_dir_path function
 		 */
-		\WP_Mock::userFunction( 'plugin_dir_path', array(
-			'times' => 1,
-			'args' => $plugin_full_path,
-			'return' => rtrim( dirname( $plugin_full_path ), '/\\' ) . '/',
-		) );
+		\WP_Mock::userFunction(
+			'plugin_dir_path', array(
+				'times'  => 1,
+				'args'   => $plugin_full_path,
+				'return' => rtrim( dirname( $plugin_full_path ), '/\\' ) . '/',
+			)
+		);
 
 		/**
 		 * Mock esc_html function
 		 */
-		\WP_Mock::userFunction( 'esc_html', array(
-			'times' => 1,
-			'args' => $plugin,
-			'return' => $plugin,
-		) );
+		\WP_Mock::userFunction(
+			'esc_html', array(
+				'times'  => 1,
+				'args'   => $plugin,
+				'return' => $plugin,
+			)
+		);
 
 		/**
 		 * Mock update_option function
@@ -155,16 +167,16 @@ class Scanner_Test extends TestCase {
 		$test_plugins_string_2 = 'Plugin subdir test string __';
 
 		$strings[ md5( $test_plugins_string_1 ) ] = array(
-			'name' => '',
-			'string' => $test_plugins_string_1,
-			'context' => $test_string_domain,
+			'name'      => '',
+			'string'    => $test_plugins_string_1,
+			'context'   => $test_string_domain,
 			'multiline' => false,
 		);
 
 		$strings[ md5( $test_plugins_string_2 ) ] = array(
-			'name' => '',
-			'string' => $test_plugins_string_2,
-			'context' => $test_string_domain,
+			'name'      => '',
+			'string'    => $test_plugins_string_2,
+			'context'   => $test_string_domain,
 			'multiline' => false,
 		);
 
@@ -183,7 +195,7 @@ class Scanner_Test extends TestCase {
 	 * Test if scanner class will not scan current theme directories if
 	 * wp_get_theme function will not return WP_Theme class instance.
 	 */
-	function test_scanner_will_not_scan_directories_if_wp_get_theme_do_not_return_wp_theme_class() {
+	public function test_scanner_will_not_scan_directories_if_wp_get_theme_do_not_return_wp_theme_class() {
 
 		/**
 		 * WP_Theme mock class
@@ -198,18 +210,22 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock WP_Theme object and wp_get_theme function
 		 */
-		\WP_Mock::userFunction( 'wp_get_theme', array(
-			'times' => 1,
-			'return' => null,
-		) );
+		\WP_Mock::userFunction(
+			'wp_get_theme', array(
+				'times'  => 1,
+				'return' => null,
+			)
+		);
 
 		/**
 		 * Mock get active plugins
 		 */
-		\WP_Mock::userFunction( 'get_option', array(
-			'times' => 1,
-			'return' => array(),
-		) );
+		\WP_Mock::userFunction(
+			'get_option', array(
+				'times'  => 1,
+				'return' => array(),
+			)
+		);
 
 		/**
 		 * If everything go well we should call update_options with these
@@ -226,7 +242,7 @@ class Scanner_Test extends TestCase {
 	 * Test if scanner class will not scan current theme directories if
 	 * wp_get_theme function will return WP_Theme class without textdomain.
 	 */
-	function test_scanner_will_not_scan_directories_if_wp_get_theme_will_return_theme_without_textdomain() {
+	public function test_scanner_will_not_scan_directories_if_wp_get_theme_will_return_theme_without_textdomain() {
 
 		/**
 		 * WP_Theme mock class
@@ -243,18 +259,22 @@ class Scanner_Test extends TestCase {
 		 */
 		$theme = new \WP_Theme( false );
 
-		\WP_Mock::userFunction( 'wp_get_theme', array(
-			'times' => 1,
-			'return' => $theme,
-		) );
+		\WP_Mock::userFunction(
+			'wp_get_theme', array(
+				'times'  => 1,
+				'return' => $theme,
+			)
+		);
 
 		/**
 		 * Mock get active plugins
 		 */
-		\WP_Mock::userFunction( 'get_option', array(
-			'times' => 1,
-			'return' => array(),
-		) );
+		\WP_Mock::userFunction(
+			'get_option', array(
+				'times'  => 1,
+				'return' => array(),
+			)
+		);
 
 		/**
 		 * If everything go well we should call update_options with these
@@ -271,7 +291,7 @@ class Scanner_Test extends TestCase {
 	 * Test if scanner class will not scan active plugin directories if
 	 * get_plugin_data function will return plugin info array without textdomain.
 	 */
-	function test_scanner_will_not_scan_directories_if_get_plugin_data_will_return_plugin_without_textdomain() {
+	public function test_scanner_will_not_scan_directories_if_get_plugin_data_will_return_plugin_without_textdomain() {
 
 		/**
 		 * Plugin container mock
@@ -281,30 +301,36 @@ class Scanner_Test extends TestCase {
 		/**
 		 * Mock WP_Theme object and wp_get_theme function
 		 */
-		\WP_Mock::userFunction( 'wp_get_theme', array(
-			'times' => 1,
-			'return' => false,
-		) );
+		\WP_Mock::userFunction(
+			'wp_get_theme', array(
+				'times'  => 1,
+				'return' => false,
+			)
+		);
 
 		/**
 		 * Mock get_options function
 		 */
-		$plugin_path = 'test/test.php';
+		$plugin_path      = 'test/test.php';
 		$plugin_full_path = WP_PLUGIN_DIR . '/' . $plugin_path;
 
-		\WP_Mock::userFunction( 'get_option', array(
-			'times' => 1,
-			'return' => array( $plugin_path ),
-		) );
+		\WP_Mock::userFunction(
+			'get_option', array(
+				'times'  => 1,
+				'return' => array( $plugin_path ),
+			)
+		);
 
 		/**
 		 * Mock get_plugin_data function
 		 */
-		\WP_Mock::userFunction( 'get_plugin_data', array(
-			'times' => 1,
-			'args' => $plugin_full_path,
-			'return' => array(), // Return plugin data without textdomain.
-		) );
+		\WP_Mock::userFunction(
+			'get_plugin_data', array(
+				'times'  => 1,
+				'args'   => $plugin_full_path,
+				'return' => array(), // Return plugin data without textdomain.
+			)
+		);
 
 		/**
 		 * If everything go well we should call update_options with these
@@ -337,10 +363,12 @@ class Scanner_Test extends TestCase {
 	 */
 	private function mock_update_option( $option_name, $option_value ) {
 
-		\WP_Mock::userFunction( 'update_option', array(
-			'times' => 1,
-			'args' => array( $option_name, $option_value ),
-			'return' => true,
-		) );
+		\WP_Mock::userFunction(
+			'update_option', array(
+				'times'  => 1,
+				'args'   => array( $option_name, $option_value ),
+				'return' => true,
+			)
+		);
 	}
 }

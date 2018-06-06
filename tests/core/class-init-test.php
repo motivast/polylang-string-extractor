@@ -33,7 +33,7 @@ class Init_Test extends TestCase {
 	/**
 	 * Test if init is settings variables
 	 */
-	function test_init_is_settings_variables() {
+	public function test_init_is_settings_variables() {
 
 		$init = new Init();
 
@@ -51,7 +51,7 @@ class Init_Test extends TestCase {
 	 * Isolate in separate process because we are already mocking
 	 * load_plugin_textdomain in other tests and we do not want break them.
 	 */
-	function test_init_is_loading_dependencies() {
+	public function test_init_is_loading_dependencies() {
 
 		$init = new Init();
 
@@ -75,7 +75,7 @@ class Init_Test extends TestCase {
 	 * Isolate in separate process because we are already mocking
 	 * load_plugin_textdomain in other tests and we do not want break them.
 	 */
-	function test_init_is_calling_run_on_dependencies() {
+	public function test_init_is_calling_run_on_dependencies() {
 
 		$init = new Init();
 
@@ -104,18 +104,20 @@ class Init_Test extends TestCase {
 	/**
 	 * Mock load_plugin_textdomain which is called during set_locale method
 	 */
-	function mock_load_plugin_textdomain() {
+	public function mock_load_plugin_textdomain() {
 
 		/**
 		 * Mock load_plugin_textdomain function
 		 */
-		\WP_Mock::userFunction( 'load_plugin_textdomain', array(
-			'times' => 1,
-			'args' => array(
-				'polylang_string_extractor',
-				false,
-				'polylang-string-extractor/languages',
-			),
-		) );
+		\WP_Mock::userFunction(
+			'load_plugin_textdomain', array(
+				'times' => 1,
+				'args'  => array(
+					'polylang_string_extractor',
+					false,
+					'polylang-string-extractor/languages',
+				),
+			)
+		);
 	}
 }

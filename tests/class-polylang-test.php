@@ -55,9 +55,9 @@ class Polylang_Test extends TestCase {
 	/**
 	 * Test if polylang class will add hooks
 	 */
-	function test_polylang_will_add_hooks() {
+	public function test_polylang_will_add_hooks() {
 
-		$init = $this->mock_init();
+		$init           = $this->mock_init();
 		$init['loader'] = Mockery::mock( '\PolylangStringExtractor\Core\Loader', [ $init ] );
 
 		$polylang = new Polylang( $init );
@@ -92,24 +92,26 @@ class Polylang_Test extends TestCase {
 	/**
 	 * Test if polylang get_strings method will return proper results
 	 */
-	function test_polylang_get_strings_will_return_results() {
+	public function test_polylang_get_strings_will_return_results() {
 
 		$init = $this->mock_init();
 
-		$pll_strings = $this->get_pll_strings();
+		$pll_strings       = $this->get_pll_strings();
 		$extractor_strings = $this->get_extractor_strings();
 
 		/**
 		 * Mock get_option function
 		 */
-		\WP_Mock::userFunction( 'get_option', array(
-			'times' => 1,
-			'args' => array( 'polylang_string_extractor_strings', array() ),
-			'return' => $extractor_strings,
-		) );
+		\WP_Mock::userFunction(
+			'get_option', array(
+				'times'  => 1,
+				'args'   => array( 'polylang_string_extractor_strings', array() ),
+				'return' => $extractor_strings,
+			)
+		);
 
 		$polylang = new Polylang( $init );
-		$strings = $polylang->get_strings( $pll_strings );
+		$strings  = $polylang->get_strings( $pll_strings );
 
 		$this->assertEquals( $strings, array_merge( $pll_strings, $extractor_strings ) );
 	}
@@ -118,7 +120,7 @@ class Polylang_Test extends TestCase {
 	 * Test if load_strings_translations method will populate $l10n with proper
 	 * translations
 	 */
-	function test_load_strings_translations_will_populate_l10n() {
+	public function test_load_strings_translations_will_populate_l10n() {
 
 		/**
 		 * MO mock class
@@ -132,10 +134,10 @@ class Polylang_Test extends TestCase {
 		/**
 		 * Get and convert polylang and extractor strings to WordPress translations
 		 */
-		$pll_strings = $this->get_pll_strings();
+		$pll_strings       = $this->get_pll_strings();
 		$extractor_strings = $this->get_extractor_strings();
 
-		$pll_translations = $this->pll_translations_to_mo( $pll_strings );
+		$pll_translations       = $this->pll_translations_to_mo( $pll_strings );
 		$extractor_translations = $this->pll_translations_to_mo( $extractor_strings );
 
 		/**
@@ -147,11 +149,13 @@ class Polylang_Test extends TestCase {
 		/**
 		 * Mock get_option function
 		 */
-		\WP_Mock::userFunction( 'get_option', array(
-			'times' => 1,
-			'args' => array( 'polylang_string_extractor_strings', array() ),
-			'return' => $this->get_extractor_strings(),
-		) );
+		\WP_Mock::userFunction(
+			'get_option', array(
+				'times'  => 1,
+				'args'   => array( 'polylang_string_extractor_strings', array() ),
+				'return' => $this->get_extractor_strings(),
+			)
+		);
 
 		$polylang = new Polylang( $init );
 		$polylang->load_strings_translations();
@@ -168,7 +172,7 @@ class Polylang_Test extends TestCase {
 
 		$expected_l10n = array(
 			'pll_string' => $expected_pll_strings_mo,
-			'extractor' => $expected_extractor_mo,
+			'extractor'  => $expected_extractor_mo,
 		);
 
 		$this->assertEquals( $expected_l10n, $l10n );
@@ -178,7 +182,7 @@ class Polylang_Test extends TestCase {
 	 * Test if load_strings_translations method will do nothing if there is no
 	 * pll_string index in $l10n global
 	 */
-	function test_load_strings_translations_will_do_nothing_when_empty_l10n() {
+	public function test_load_strings_translations_will_do_nothing_when_empty_l10n() {
 
 		global $l10n;
 
@@ -219,16 +223,16 @@ class Polylang_Test extends TestCase {
 		$test_pll_context = 'polylang';
 
 		$pll_strings[ md5( $test_pll_string_1 ) ] = array(
-			'name' => '',
-			'string' => $test_pll_string_1,
-			'context' => $test_pll_context,
+			'name'      => '',
+			'string'    => $test_pll_string_1,
+			'context'   => $test_pll_context,
 			'multiline' => false,
 		);
 
 		$pll_strings[ md5( $test_pll_string_2 ) ] = array(
-			'name' => '',
-			'string' => $test_pll_string_2,
-			'context' => $test_pll_context,
+			'name'      => '',
+			'string'    => $test_pll_string_2,
+			'context'   => $test_pll_context,
 			'multiline' => false,
 		);
 
@@ -250,16 +254,16 @@ class Polylang_Test extends TestCase {
 		$test_extractor_context = 'extractor';
 
 		$extractor_strings[ md5( $test_extractor_string_1 ) ] = array(
-			'name' => '',
-			'string' => $test_extractor_string_1,
-			'context' => $test_extractor_context,
+			'name'      => '',
+			'string'    => $test_extractor_string_1,
+			'context'   => $test_extractor_context,
 			'multiline' => false,
 		);
 
 		$extractor_strings[ md5( $test_extractor_string_2 ) ] = array(
-			'name' => '',
-			'string' => $test_extractor_string_2,
-			'context' => $test_extractor_context,
+			'name'      => '',
+			'string'    => $test_extractor_string_2,
+			'context'   => $test_extractor_context,
 			'multiline' => false,
 		);
 

@@ -55,7 +55,7 @@ class Scanner {
 
 		$strings = array_merge( $theme_strings, $plugins_strings );
 
-		update_option( $this->plugin['strings_option_name'] , $strings );
+		update_option( $this->plugin['strings_option_name'], $strings );
 	}
 
 	/**
@@ -143,7 +143,7 @@ class Scanner {
 
 		// http://php.net/manual/en/class.recursivedirectoryiterator.php#97228.
 		$directory = new \RecursiveDirectoryIterator( $path );
-		$iterator = new \RecursiveIteratorIterator( $directory );
+		$iterator  = new \RecursiveIteratorIterator( $directory );
 
 		$regex = new \RegexIterator( $iterator, '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH );
 
@@ -152,9 +152,11 @@ class Scanner {
 		 */
 		$files = iterator_to_array( $regex );
 
-		array_walk_recursive( $files, function( $file ) use ( &$flattened ) {
-			$flattened[] = $file;
-		} );
+		array_walk_recursive(
+			$files, function( $file ) use ( &$flattened ) {
+				$flattened[] = $file;
+			}
+		);
 
 		return $flattened;
 	}
@@ -178,14 +180,14 @@ class Scanner {
 			$domain = $translations->getDomain();
 
 			$strings[ md5( $string ) ] = array(
-				'name' => '',
-				'string' => $string,
+				'name'      => '',
+				'string'    => $string,
 
 				/**
 				 * Polylang use context value as group name in administration.
 				 * This should be obviously called domain or textdomain.
 				 */
-				'context' => $domain,
+				'context'   => $domain,
 				'multiline' => false,
 			);
 		}

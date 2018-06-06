@@ -82,7 +82,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	/**
 	 * Test if wp function scanner will handle properly wp_translate
 	 */
-	function test_wp_function_scanner_will_handle_wp_translate() {
+	public function test_wp_function_scanner_will_handle_wp_translate() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -104,7 +104,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * wrong textdomain.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_translate_if_wrong_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_translate_if_wrong_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -124,7 +124,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * no textdomain provided.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_translate_if_no_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_translate_if_no_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -151,7 +151,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	/**
 	 * Test if wp function scanner will handle properly wp_n_translate
 	 */
-	function test_wp_function_scanner_will_handle_wp_n_translate() {
+	public function test_wp_function_scanner_will_handle_wp_n_translate() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -173,7 +173,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * wrong textdomain.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_n_translate_if_wrong_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_n_translate_if_wrong_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -193,7 +193,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * no textdomain provided.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_n_translate_if_no_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_n_translate_if_no_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -220,7 +220,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	/**
 	 * Test if wp function scanner will handle properly wp_x_translate
 	 */
-	function test_wp_function_scanner_will_handle_wp_x_translate() {
+	public function test_wp_function_scanner_will_handle_wp_x_translate() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -242,7 +242,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * wrong textdomain.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_x_translate_if_wrong_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_x_translate_if_wrong_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -262,7 +262,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * no textdomain provided.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_x_translate_if_no_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_x_translate_if_no_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -289,7 +289,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	/**
 	 * Test if wp function scanner will handle properly wp_nx_translate
 	 */
-	function test_wp_function_scanner_will_handle_wp_nx_translate() {
+	public function test_wp_function_scanner_will_handle_wp_nx_translate() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -311,7 +311,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * wrong textdomain.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_nx_translate_if_wrong_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_nx_translate_if_wrong_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -331,7 +331,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * no textdomain provided.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_nx_translate_if_no_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_nx_translate_if_no_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -358,7 +358,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	/**
 	 * Test if wp function scanner will handle properly wp_n_noop_translate
 	 */
-	function test_wp_function_scanner_will_handle_wp_n_noop_translate() {
+	public function test_wp_function_scanner_will_handle_wp_n_noop_translate() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -380,7 +380,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * wrong textdomain.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_n_noop_translate_if_wrong_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_n_noop_translate_if_wrong_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -400,7 +400,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * no textdomain provided.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_n_noop_translate_if_no_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_n_noop_translate_if_no_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -427,7 +427,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	/**
 	 * Test if wp function scanner will handle properly wp_nx_noop_translate
 	 */
-	function test_wp_function_scanner_will_handle_wp_nx_noop_translate() {
+	public function test_wp_function_scanner_will_handle_wp_nx_noop_translate() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -449,7 +449,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * wrong textdomain.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_nx_noop_translate_if_wrong_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_nx_noop_translate_if_wrong_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -469,7 +469,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will not handle translations if there is
 	 * no textdomain provided.
 	 */
-	function test_wp_function_scanner_will_not_handle_wp_nx_noop_translate_if_no_textdomain() {
+	public function test_wp_function_scanner_will_not_handle_wp_nx_noop_translate_if_no_textdomain() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -492,7 +492,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	/**
 	 * Test if wp function scanner will not handle fake function.
 	 */
-	function test_wp_function_scanner_will_not_handle_fake_function() {
+	public function test_wp_function_scanner_will_not_handle_fake_function() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -512,7 +512,7 @@ class WPFunctionsScanner_Test extends TestCase {
 	 * Test if wp function scanner will throw exception if there is no
 	 * assigned case for function.
 	 */
-	function test_wp_function_scanner_will_not_handle_fake_index_function() {
+	public function test_wp_function_scanner_will_not_handle_fake_index_function() {
 
 		$translations = new Translations();
 		$translations->setDomain( $this->textdomain );
@@ -536,7 +536,7 @@ class WPFunctionsScanner_Test extends TestCase {
 
 		return array(
 			'constants' => array(),
-			'file' => 'test.php',
+			'file'      => 'test.php',
 			'functions' => array(
 				'__' => 'wp_translate',
 			),
@@ -550,7 +550,7 @@ class WPFunctionsScanner_Test extends TestCase {
 
 		return array(
 			'constants' => array(),
-			'file' => 'test.php',
+			'file'      => 'test.php',
 			'functions' => array(
 				'_n' => 'wp_n_translate',
 			),
@@ -564,7 +564,7 @@ class WPFunctionsScanner_Test extends TestCase {
 
 		return array(
 			'constants' => array(),
-			'file' => 'test.php',
+			'file'      => 'test.php',
 			'functions' => array(
 				'_x' => 'wp_x_translate',
 			),
@@ -578,7 +578,7 @@ class WPFunctionsScanner_Test extends TestCase {
 
 		return array(
 			'constants' => array(),
-			'file' => 'test.php',
+			'file'      => 'test.php',
 			'functions' => array(
 				'_nx' => 'wp_nx_translate',
 			),
@@ -592,7 +592,7 @@ class WPFunctionsScanner_Test extends TestCase {
 
 		return array(
 			'constants' => array(),
-			'file' => 'test.php',
+			'file'      => 'test.php',
 			'functions' => array(
 				'_n_noop' => 'wp_n_noop_translate',
 			),
@@ -606,7 +606,7 @@ class WPFunctionsScanner_Test extends TestCase {
 
 		return array(
 			'constants' => array(),
-			'file' => 'test.php',
+			'file'      => 'test.php',
 			'functions' => array(
 				'_nx_noop' => 'wp_nx_noop_translate',
 			),
@@ -620,7 +620,7 @@ class WPFunctionsScanner_Test extends TestCase {
 
 		return array(
 			'constants' => array(),
-			'file' => 'test.php',
+			'file'      => 'test.php',
 			'functions' => array(
 				'fake' => 'fake',
 			),
