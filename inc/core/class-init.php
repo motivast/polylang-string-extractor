@@ -17,6 +17,7 @@ namespace PolylangStringExtractor\Core;
 use PolylangStringExtractor\Activation;
 use PolylangStringExtractor\Scanner;
 use PolylangStringExtractor\Polylang;
+use PolylangStringExtractor\Admin;
 
 /**
  * The core plugin class.
@@ -136,6 +137,7 @@ class Init extends Container {
 		$this['activation'] = new Activation( $this );
 		$this['scanner']    = new Scanner( $this );
 		$this['polylang']   = new Polylang( $this );
+		$this['admin']      = new Admin( $this );
 	}
 
 	/**
@@ -167,6 +169,7 @@ class Init extends Container {
 
 		$this['activation']->run();
 		$this['polylang']->run();
+		$this['admin']->run();
 
 		$this['loader']->run();
 	}

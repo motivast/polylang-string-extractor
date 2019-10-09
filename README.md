@@ -23,7 +23,7 @@ or
 3. Activate the plugin through the"‘Plugins" menu in WordPress
 
 ## Usage :fire:
-After plugin activation Polylang String Extractor will automaticly scan your theme and plugins loooking for WordPress translation functions. If you add plugin or change theme you can reactivate plugin to scan files again.
+After plugin activation Polylang String Extractor will automaticly scan your theme and plugins loooking for WordPress translation functions. To rescan theme and plugins again you can go to "Strings Translations" of the "Polylang" plugin and click "Scan for translations" button.
 
 Supported functions:
 * `__()`
