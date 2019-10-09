@@ -79,7 +79,7 @@ class Scanner {
 			return array();
 		}
 
-		$theme_dir = get_template_directory();
+		$theme_dir = ( ! is_child_theme() ) ? get_template_directory() : get_theme_file_path();
 
 		$php_files = $this->get_php_files( $theme_dir );
 
