@@ -29,10 +29,16 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if ( ! defined( 'POLYLANG_STRING_EXTRACTOR_VERSION' ) )
+	define( 'POLYLANG_STRING_EXTRACTOR_VERSION', '1.0.0' );
+
 /**
  * Load autoloader to not bother to requiring classes.
  */
-require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+if( file_exists( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' ) ) {
+	require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+}
+
 require_once plugin_dir_path( __FILE__ ) . 'inc/autoloader.php';
 
 /**
